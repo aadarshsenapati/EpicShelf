@@ -13,10 +13,10 @@ EpicShelf aims to empower small businesses, especially Instagram sellers, by pro
      ii) Seller
      iii) Admin
    </pre>
-   b) Profile management for listing and transaction history
+   b) Profile management for listing and transaction history<br>
 
-2) Book Listings & Transactions
-   a) Sellers can list books with details
+2) Book Listings & Transactions<br>
+   a) Sellers can list books with details<br>
    <pre>
         i) Title
         ii) Author
@@ -25,31 +25,31 @@ EpicShelf aims to empower small businesses, especially Instagram sellers, by pro
         v) Images
         vi) Rent or sell
    </pre>
-   b) Buyers can browse, search, and purchase books
-   Search by:
+   b) Buyers can browse, search, and purchase books<br>
+   Search by:<br>
    <pre>
          i) Title
         ii) Author
    </pre>
-   Filter By:
+   Filter By:<br>
    <pre>
          i) Price
         ii) Condition [New/Old]
         iii) Rent/Sell
    </pre>
-   c) Recharge wallet
+   c) Recharge wallet<br>
    <pre>
        i) Renters can request books with a minimum balance of 125% of the book price
        ii) Automated rent duration tracking and book return management
     </pre>
-3) Payment & Security
-   a) Integration of payment gateways for buying, selling, and renting
-   b) Secure transactions and balance management
-   c) Wallet management
-5) Admin Dashboard
-   a)  Manage users, listings, and transactions
-   b)  Monitor rental balances and disputes
-   c)  Incase of damage of book, 90% of the book amount will go to seller from users wallet
-6) Notifications & Communication
-   a) Email notifications for transactions
-   b) Chat with admin for any disputes
+3) Payment & Security<br>
+   a) Integration of payment gateways for buying, selling, and renting<br>
+   b) Secure transactions and balance management<br>
+   c) Wallet management<br>
+5) Admin Dashboard<br>
+   a)  Manage users, listings, and transactions<br>
+   b)  Monitor rental balances and disputes<br>
+   c)  Incase of damage of book, 90% of the book amount will go to seller from users wallet<br>
+6) Notifications & Communication<br>
+   a) Email notifications for transactions<br>
+   b) Chat with admin for any disputes<br>
