@@ -176,7 +176,7 @@ button:hover{
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 475px) {
     .main {
         width: 100vw;
         min-height: 550px;
@@ -230,6 +230,9 @@ button:hover{
     .login {
         border-radius: 40% / 8%;
     }
+	#chk:checked ~ .login{
+		transform: translateY(-400px);
+	}
 }
 
 @media screen and (max-width: 470px) {
@@ -251,5 +254,32 @@ button:hover{
     }
 	#chk:checked ~ .login{
 		transform: translateY(-370px);
+	}
+}
+
+@media screen and (max-width: 190px) {
+    .login {
+        border-radius: 14% / 10%;
+    }
+	#chk:checked ~ .login{
+		transform: translateY(-345px);
+	}
+}
+
+@media screen and (max-width: 475px) {
+    .login {
+        border-radius: 14% / 10%;
+    }
+	#chk:checked ~ .login{
+		transform: translateY(-370px);
+	}
+}
+
+@media screen and (max-width: 360px) {
+    .login {
+        border-radius: 5% / 10%;
+    }
+	#chk:checked ~ .login{
+		transform: translateY(-340px);
 	}
 }
