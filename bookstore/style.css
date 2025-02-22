@@ -1,3 +1,10 @@
+.error {
+	color: red;
+	font-size: 14px;
+	display: block;
+	margin-top: 5px;
+}
+
 .main{
 	width: 70vw;
 	min-height: 900px;
@@ -282,4 +289,27 @@ button:hover{
 	#chk:checked ~ .login{
 		transform: translateY(-340px);
 	}
+}
+
+#password-strength {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#strength-bar {
+    display: inline-block;
+    width: 100px;
+    height: 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+    background-color: lightgray;
+    transition: width 0.3s, background-color 0.3s;
+}
+
+
+
+#mobileError,#passwordError,#password_Error {
+    display: block; 
+    text-align: center; 
+    width: 100%;
 }
