@@ -17,7 +17,7 @@
 
     <!-- CSS link is here -->
     <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style_seller.css">
     <!-- Font Awesome link is here -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -85,115 +85,121 @@
       </header>
         <!-- Navigation bar ends here -->
 
+        <!-- Seller login nav starts here -->
+        <a href="/seller_login.html" style="text-decoration: none !important;">
+        <button id="btom" style="text-decoration: none !important; background-color: whitesmoke; border: 1px solid #5c3d2e !important; color: black !important;">Seller login</button>
+        </a>
+        <!-- Seller login nav ends here -->
+
 
         <!-- card starts here -->
-        <div class="log-body">
-        <div class="main">  	
-          <input type="checkbox" id="chk" aria-hidden="true">
-            <!-- Sign up starts here -->
-            <div class="signup">
-              <form id="signupForm" method="POST">
-                <label for="chk" aria-hidden="true" style="color:  #573b8a;">Sign up</label>
-                <input type="text" name="txt" placeholder="User name" required="">
-                <input type="email" name="email" placeholder="Email" required="">
-                <input type="number" name="broj" placeholder="Mobile number" required="">
-                <span id="mobileError" class="error"></span>
-                <input type="password" id="password" name="password" placeholder="Password" required="">
-                <span id="passwordError" class="error"></span>    
-                <button>Sign up</button>
-              </form>
+        
+  
+        <div class="containerf" id="containerf">
+          <div class="form-containerf sign-up-containerf">
+            <form action="#" class="form" method="post">
+              <h1>Sign Up</h1>
+              <div class="social-containerf">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+              <span>or use your email for registration</span>
+              <input type="file" id="profilePhoto" accept="image/*" class="w-full p-2 border rounded-lg">
+              <img id="photoPreview" class="w-24 h-24 rounded-full mx-auto hidden" />
+              <input type="text" placeholder="Name" />
+              <input type="email" placeholder="Email" />
+              <input type="number" placeholder="Phone Number" />
+              <input type="date" name="dob"/>
+              <input type="number" placeholder="Aadhar Card Number" />
+              <select class="w-full p-2 border rounded-lg" required>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+              </select>
+              <input type="password" placeholder="Password" />
+              <input type="password" placeholder="Confirm Password" />
+              <button>Sign Up</button>
+            </form>
+      
+          </div>
+          <div class="form-containerf sign-in-containerf">
+              <form action="#" class="form" method="post">
+              <h1>Login</h1>
+              <div class="social-containerf">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+              <span>or use your email account</span>
+              <input type="email" placeholder="Email" />
+              <input type="password" placeholder="Password" />
+              <a href="#">Forgot your password?</a>
+              <button>Login</button>
+      
+            </form>
+          </div>
+          <div class="overlay-containerf">
+            <div class="overlay">
+              <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To stay connected with us please login with your personal info</p>
+                <button class="ghost" id="SignIn">Login</button>
+              </div>
+              <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start your journey with us </p>
+                <button class="ghost" id="SignUp">Sign Up</button>
+              </div>
             </div>
-            <!-- Sign up ends here -->
+      
+          </div>
+        </div>        
+      <!-- card ends here -->
 
-            <!-- Login starts here -->
-            <div class="login">
-              <form id="signup Form" method="POST">
-                <label for="chk" aria-hidden="true">Login</label>
-                <input type="email" name="email" placeholder="Email" required="">
-                <input type="password" id="Password" name="password" placeholder="Password" required="">
-                <span id="password_Error" class="error"></span>
-                <button>Login</button>
-              </form>
-            </div>
-        </div>
-      </div>
-        <!-- Login ends here -->
-        <!-- card ends here -->
+       <!-- Javascript start here -->
+       <script>
+        const SignUpButton = document.getElementById("SignUp");
+      const SignInButton = document.getElementById("SignIn");
+      const containerf = document.getElementById("containerf");
 
+      SignUpButton.addEventListener('click', () => {
+          containerf.classList.add("right-panel-active")
+      });
 
+      SignInButton.addEventListener('click', () => {
+          containerf.classList.remove("right-panel-active")
+      });
 
-        <!-- Javascript start here -->
-        <script>
-          // Signup form validation
-          document.getElementById("signupForm").addEventListener("submit", function(event) {
-              let password = document.getElementById("password").value;
-              let mobileInput = document.querySelector("input[name='broj']");
-              let mobileNumber = mobileInput.value;
+      document.getElementById("dob").addEventListener("change", function() {
+          let dob = new Date(this.value);
+          let age = new Date().getFullYear() - dob.getFullYear();
+          if (age < 21) {
+              alert("You must be at least 21 years old to sign up.");
+              this.value = "";
+          }
+      });
+      
+      document.getElementById("aadhaar").addEventListener("input", function() {
+          if (this.value.length > 12) this.value = this.value.slice(0, 12);
+          if (!/^\d{12}$/.test(this.value) && this.value.length === 12) {
+              alert("Aadhaar number must be exactly 12 digits.");
+              this.value = "";
+          }
+      });
 
-              let errorMessage = document.getElementById("passwordError");
-              let mobileError = document.getElementById("mobileError");
-
-              // Regular Expression for password validation
-              let passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-              let mobileRegex = /^[0-9]{10}$/; // 10-digit number validation
-
-              let valid = true; // A flag to check whether all validations pass
-
-              // Validate password
-              if (!passwordRegex.test(password)) {
-                  errorMessage.textContent = "❌ Password must be at least 8 characters long, include an uppercase letter, a number, and a special character.";
-                  errorMessage.style.color = "red";
-                  valid = false;
-              } else {
-                  errorMessage.textContent = "✅ Strong password!";
-                  errorMessage.style.color = "green";
-              }
-
-              // Validate mobile number
-              if (!mobileRegex.test(mobileNumber)) {
-                  mobileError.textContent = "❌ Mobile number must be exactly 10 digits.";
-                  mobileError.style.color = "red";
-                  valid = false;
-              } else {
-                  mobileError.textContent = "✅ Valid mobile number!";
-                  mobileError.style.color = "green";
-              }
-
-              if (!valid) {
-                  event.preventDefault(); // Prevent form submission if validation fails
-              }
-          });
-
-          // Login form validation
-          document.getElementById("signup Form").addEventListener("submit", function(event) {
-              let password = document.getElementById("Password").value;
-              let mobileInput = document.querySelector("input[name='broj']");
-            
-
-              let errorMessage = document.getElementById("password_Error");
-              
-              // Regular Expression for password validation
-              let passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-              let mobileRegex = /^[0-9]{10}$/; // 10-digit number validation
-
-              let valid = true; // A flag to check whether all validations pass
-
-              // Validate password
-              if (!passwordRegex.test(password)) {
-                  errorMessage.textContent = "❌ Password must be at least 8 characters long, include an uppercase letter, a number, and a special character.";
-                  errorMessage.style.color = "red";
-                  valid = false;
-              } else {
-                  errorMessage.textContent = "✅ Strong password!";
-                  errorMessage.style.color = "green";
-              }
-
-              if (!valid) {
-                  event.preventDefault(); // Prevent form submission if validation fails
-              }
-          });
-      </script>
-      <!-- Javascript start here -->
+      document.getElementById("profilePhoto").addEventListener("change", function(event) {
+          let reader = new FileReader();
+          reader.onload = function() {
+              let img = document.getElementById("photoPreview");
+              img.src = reader.result;
+              img.classList.remove("hidden");
+          };
+          reader.readAsDataURL(event.target.files[0]);
+      });
+    </script>
+    <!-- Javascript ends here -->
 </body>
 <footer>
   <!-- Footer bar starts here -->
