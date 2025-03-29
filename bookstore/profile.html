@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Information</title>
+    <style>
+        .container {
+            background: #FFFFFF;
+            width: 540px;
+            height: 420px;
+            box-shadow: 2px 5px 20px rgba(141, 85, 33, 0.5);
+            padding: 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--green);
+            font-size: 1.5em;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #8d5521;
+            font-family: 'Roboto', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            border-width: 1px;
+            border-style: solid;
+            border-image: linear-gradient(to right, #cc5316, rgba(126, 50, 12, 0.5)) 1 0%;
+            border-top: 0;
+            width: 80%;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9em;
+            padding: 7px 0;
+            color: #070707;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            float: right;
+            font-family: 'Roboto', sans-serif;
+            text-transform: uppercase;
+            font-size: 10px;
+            border: none;
+            color: #cc5316;
+            background: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            text-decoration: underline;
+            font-weight: 900;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile">
+            <h1>Personal Info</h1>
+            <h2>Full Name</h2>
+            <p id="fullName">[Not Set] <button class="btn" onclick="enableInlineEdit('fullName')">update</button></p>
+            <h2>Birthday</h2>
+            <p id="birthday">[Not Set] <button class="btn" onclick="enableInlineEdit('birthday')">update</button></p>
+            <h2>Gender</h2>
+            <p id="gender">[Not Set] <button class="btn" onclick="enableInlineEdit('gender')">update</button></p>
+            <h2>Email</h2>
+            <p id="email">[Not Set] <button class="btn" onclick="enableInlineEdit('email')">update</button></p>
+            <h2>Password</h2>
+            <p id="password">[Not Set] <button class="btn" onclick="enableInlineEdit('password')">Set</button></p>
+        </div>
+    </div>
+
+    <div id="updateFormContainer" style="display: none; margin-top: 20px;">
+        <form id="updateForm" onsubmit="submitUpdate(event)">
+            <label for="updateInput" id="updateLabel"></label>
+            <input type="text" id="updateInput" class="form-control" required>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Save</button>
+            <button type="button" class="btn btn-secondary" style="margin-top: 10px;" onclick="hideUpdateForm()">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+        let currentFieldId = "";
+        const editableFields = {
+            birthday: true,
+            email: false,
+        };
+
+        function enableInlineEdit(fieldId) {
+            if (!editableFields[fieldId]) {
+                alert("This field cannot be updated.");
+                return;
+            }
+
+            const field = document.getElementById(fieldId);
+            const currentValue = field.innerText.includes("[Not Set]") ? "" : field.innerText;
+
+            field.innerHTML = `
+                <input type="text" id="${fieldId}-input" value="${currentValue}" class="form-control" style="width: 70%; display: inline-block;">
+                <button class="btn btn-primary" onclick="saveInlineEdit('${fieldId}')">Save</button>
+                <button class="btn btn-secondary" onclick="cancelInlineEdit('${fieldId}', '${currentValue}')">Cancel</button>
+            `;
+        }
+
+        function saveInlineEdit(fieldId) {
+            const input = document.getElementById(`${fieldId}-input`);
+            const newValue = input.value.trim();
+
+            if (newValue) {
+                const field = document.getElementById(fieldId);
+
+                if (fieldId === "password") {
+                    const maskedPassword = "•".repeat(newValue.length);
+                    field.innerHTML = `${maskedPassword} <button class="btn" onclick="enableInlineEdit('${fieldId}')">Change</button>`;
+                    alert("Password updated successfully!");
+                } else {
+                    field.innerHTML = `${newValue} <button class="btn" onclick="enableInlineEdit('${fieldId}')">update</button>`;
+                }
+
+                if (fieldId === "birthday") {
+                    editableFields[fieldId] = false;
+                    alert("Date of Birth can only be updated once.");
+                }
+            } else {
+                alert("Invalid input. Please try again.");
+            }
+        }
+
+        function cancelInlineEdit(fieldId, originalValue) {
+            const field = document.getElementById(fieldId);
+
+            if (fieldId === "password") {
+                const maskedPassword = "•".repeat(originalValue.length);
+                field.innerHTML = `${maskedPassword} <button class="btn" onclick="enableInlineEdit('${fieldId}')">Change</button>`;
+            } else {
+                field.innerHTML = `${originalValue} <button class="btn" onclick="enableInlineEdit('${fieldId}')">update</button>`;
+            }
+        }
+    </script>
+</body>
+</html>
