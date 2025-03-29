@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Books</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f1eb;
+            color: #333;
+        }
+        .navbar {
+            background-color: #5c3d2e !important;
+            padding: 15px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand, .nav-link {
+            color: #f8f1eb !important;
+            font-size: 18px;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .nav-link {
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #e0fbfc !important;
+        }
+        .input-group {
+            width: 100%;
+        }
+        .input-group-text {
+            background-color: #5c3d2e;
+            color: #f8f1eb;
+            border: none;
+        }
+        .form-control {
+            border: none;
+            border-radius: 0;
+        }
+        .btn-search {
+            background-color: #f8f1eb;
+            color: #5c3d2e;
+            border: 1px solid #f8f1eb;
+            border-radius: 0;
+        }
+        .btn-search:hover {
+            background-color: #5c3d2e;
+            color: #f8f1eb;
+        }
+        .container-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            max-width: 950px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .form-label {
+            font-weight: bold;
+            color: #5c3d2e;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 1px solid #5c3d2e;
+        }
+        .form-check-label {
+            color: #5c3d2e;
+        }
+        .btn-primary {
+            background-color: #5c3d2e;
+            border: none;
+            border-radius: 10px;
+        }
+        .btn-primary:hover {
+            background-color: #3e2a1f;
+        }
+        .text-muted {
+            color: #5c3d2e !important;
+        }
+        .form-check-input:checked {
+            background-color: #5c3d2e;
+            border-color: #5c3d2e;
+        }
+        .form-check-input:focus {
+            border-color: #5c3d2e;
+            box-shadow: 0 0 0 0.25rem rgba(92, 61, 46, 0.25);
+        }
+        footer {
+            background-color: #5c3d2e;
+            color: #f8f1eb;
+            padding: 20px 0;
+        }
+        footer a {
+            color: #f8f1eb;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #e0fbfc;
+        }
+        .footer-section {
+            margin-bottom: 20px;
+        }
+        .footer-section h6 {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        .footer-social-icons {
+            display: flex;
+            gap: 10px;
+        }
+        .footer-social-icons a {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="image 1.png" alt="EpicShelf" style="height: 40px;"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="specificSizeInputGroupUsername" placeholder="Book name/ Author/ Subject">
+                            <button class="btn btn-search"><i class="fas fa-search"></i> Search</button>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user"></i> My account</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <div class="container-box">
+            <p>Submit a free classified ad to <b>sell your used books for cash in India</b></p>
+            <a href="#">Click here to learn how does it work?</a>
+            <hr>
+            <form id="sellBookForm">
+                <h6>Book Details:</h6>
+                <div class="mb-3">
+                    <label for="adTitle" class="form-label">Add title</label>
+                    <input type="text" id="adTitle" class="form-control" placeholder="Enter ad title">
+                </div>
+                
+                <label class="form-label">Book details</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="bookEntry" id="manualEntry" checked onclick="toggleBookDetails()">
+                    <label class="form-check-label" for="manualEntry">
+                        Enter book details manually
+                    </label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="radio" name="bookEntry" id="isbnEntry" onclick="toggleBookDetails()">
+                    <label class="form-check-label" for="isbnEntry">
+                        Automatically, by just typing the ISBN number
+                    </label>
+                </div>
+
+                <div id="manualDetails">
+                    <div class="mb-3">
+                        <label for="bookType" class="form-label">Book Type</label>
+                        <select id="bookType" class="form-select">
+                            <option value="fiction">Fiction</option>
+                            <option value="non-fiction">Non-Fiction</option>
+                            <option value="educational">Educational</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bookTitle" class="form-label">Book Title</label>
+                        <input type="text" id="bookTitle" class="form-control" placeholder="Enter book name">
+                    </div>
+                </div>
+
+                <div id="isbnDetails" style="display: none;">
+                    <div class="mb-3">
+                        <label for="isbn" class="form-label">ISBN</label>
+                        <input type="text" id="isbn" class="form-control" placeholder="Enter 13-digit ISBN number">
+                    </div>
+                    <button type="button" id="getBookDetails" class="btn btn-primary mb-3">Get Book Details</button>
+                    <div class="mb-3">
+                        <label for="bookTypeAfter" class="form-label">Book Type</label>
+                        <select id="bookTypeAfter" class="form-select">
+                            <option value="fiction">Fiction</option>
+                            <option value="non-fiction">Non-Fiction</option>
+                            <option value="educational">Educational</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bookTitleAfter" class="form-label">Book Title</label>
+                        <input type="text" id="bookTitleAfter" class="form-control" placeholder="Enter book name">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="imageUpload" class="form-label">Choose an image to upload:</label>
+                    <input type="file" id="imageUpload" name="image" accept="image/*" class="form-control">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="Quantity" class="form-label">Quantity available</label>
+                    <select id="Quantity" class="form-select" onchange="toggleQuantityInput()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="More">More</option>
+                    </select>
+                    <input type="text" id="customQuantity" class="form-control mt-2" placeholder="Enter quantity" style="display: none;">
+                </div>
+                
+                <hr>
+                <h6>Price Details:</h6>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Your Price (₹)</label>
+                    <input type="text" id="price" class="form-control" placeholder="Enter your price">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="shipping" class="form-label">Your shipping charges to buyer</label>
+                    <input type="text" id="shipping" class="form-control d-inline w-50" placeholder="Enter shipping charges">
+                    <input type="checkbox" id="freeShipping" class="ms-2">
+                    <label for="freeShipping">Free Shipping</label>
+                    <p class="text-muted small">Buyers prefer free shipping or low shipping charges</p>
+                </div>
+                
+                <h6>Preferred Payment Mode:</h6>
+                <p>After your book is sold, in what mode would you like to receive the payment?</p>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="paymentMode" id="upi" checked>
+                    <label class="form-check-label" for="upi">UPI Number</label>
+                </div>
+                <div class="form-check form-check-inline mb-3">
+                    <input class="form-check-input" type="radio" name="paymentMode" id="bank">
+                    <label class="form-check-label" for="bank">Bank Account</label>
+                </div>
+                <hr>
+                <fieldset>
+                    <legend>Your Details:</legend>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Enter name">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter email">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="mobile" class="form-label">Mobile Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text">+91</span>
+                            <input type="text" id="mobile" class="form-control" placeholder="Enter mobile number">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="pincode" class="form-label">Pincode</label>
+                        <input type="text" id="pincode" class="form-control" placeholder="Enter pincode">
+                    </div>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="keepPrivate">
+                        <label class="form-check-label" for="keepPrivate">
+                            Keep my phone number private.
+                        </label>
+                    </div>
+                </fieldset>
+                
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            </form>
+        </div>
+    </div>
+    <footer class="text-center text-lg-start">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0 footer-section">
+                    <h6>ABOUT US</h6>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Leave Us Feedback</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0 footer-section">
+                    <h6>USEFUL LINKS</h6>
+                    <ul>
+                        <li><a href="#">How it works?</a></li>
+                        <li><a href="#">EpicShelf Teleport</a></li>
+                        <li><a href="#">Frequently Asked Questions (FAQs)</a></li>
+                        <li><a href="#">Chat Guidelines</a></li>
+                        <li><a href="#">Terms Of Use / Listing Policy / Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0 footer-section">
+                    <h6>STAY CONNECTED</h6>
+                    <div class="footer-social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0 footer-section">
+                    <h6>SUPPORT</h6>
+                    <ul>
+                        <li><a href="#">Secure Payment</a></li>
+                        <li><a href="#">EpicShelf Trust</a></li>
+                        <li><a href="#">Customer Support</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        function toggleBookDetails() {
+            const manualDetails = document.getElementById('manualDetails');
+            const isbnDetails = document.getElementById('isbnDetails');
+            manualDetails.style.display = document.getElementById('manualEntry').checked ? 'block' : 'none';
+            isbnDetails.style.display = document.getElementById('isbnEntry').checked ? 'block' : 'none';
+        }
+
+        function toggleQuantityInput() {
+            const quantitySelect = document.getElementById('Quantity');
+            const customQuantityInput = document.getElementById('customQuantity');
+            if (quantitySelect.value === 'More') {
+                customQuantityInput.style.display = 'block';
+            } else {
+                customQuantityInput.style.display = 'none';
+            }
+        }
+
+        document.getElementById('sellBookForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+            const pincode = document.getElementById('pincode').value;
+
+            const nameRegex = /^[a-zA-Z\s]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const mobileRegex = /^[6-9]\d{9}$/;
+            const pincodeRegex = /^\d{6}$/;
+
+            if (!nameRegex.test(name)) {
+                alert('Please enter a valid name.');
+                return;
+            }
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email.');
+                return;
+            }
+            if (!mobileRegex.test(mobile)) {
+                alert('Please enter a valid mobile number.');
+                return;
+            }
+            if (!pincodeRegex.test(pincode)) {
+                alert('Please enter a valid pincode.');
+                return;
+            }
+
+            alert('Form submitted successfully!');
+        });
+    </script>
+</body>
+</html>
