@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order</title>
+    <style>
+       
+       body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family:Poiret One;
+        }
+        .None {
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 40px;
+            background-color: #71371a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            font-family:Poiret One;
+        }
+        button:hover {
+            background-color: #a07245;
+        }
+        h3 {
+            font-size: 40px;
+            font-family:Poiret One;
+        }
+    </style>
+    </style>
+</head>
+<body>
+   <div id="order"></div>
+    
+    <script> 
+    var Orders = null;
+    if (Orders == null) {
+        document.getElementById("order").innerHTML = `
+            <h3 class="None">No Orders Placed!</h3>
+            
+            
+        `;
+    } else {
+        document.getElementById("order").innerHTML = `<h3>Orders: ${Orders}</h3>`;
+    }
+    </script>
+</body>
+</html>
