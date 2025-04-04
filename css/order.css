@@ -1,0 +1,35 @@
+
+body {
+background-color: #f8f1eb;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family:Poiret One;
+}
+.None {
+    text-align: center;
+}
+button {
+    padding: 10px 20px;
+    font-size: 40px;
+    background-color: #71371a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    font-family:Poiret One;
+}
+button:hover {
+    background-color: #a07245;
+}
+h3 {
+    font-size: 40px;
+    font-family:Poiret One;
+}

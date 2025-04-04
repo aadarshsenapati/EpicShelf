@@ -1,0 +1,307 @@
+.error {
+	color: red;
+	font-size: 14px;
+	display: block;
+	margin-top: 5px;
+}
+
+.main{
+	width: 70vw;
+	min-height: 900px;
+	background: #f8f1eb;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 5px 20px 50px #000;
+	position: relative;
+}
+#chk{
+	display: none;
+}
+.signup{
+	position: relative;
+	width:100%;
+	height: 100%;
+}
+label{
+	color: #fff;
+	font-size: 3em;
+	justify-content: center;
+	display: flex;
+	margin: 50px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+}
+input{
+	width: 60%;
+	height: 55px;
+	background: #e0dede;
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 12px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+button{
+	width: 60%;
+	height: 55px;
+	margin: 10px auto;
+	justify-content: center;
+	display: block;
+	color: #fff;
+	background: #5c3d2e;
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 30px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+button:hover{
+	background: #5c3d2e;
+}
+.login {
+    position: absolute;
+    margin-top: 50px;
+    width: 100%;
+    height: 100%;
+    background: #eee;
+    border-radius: 60% / 10%;
+    transition: .8s ease-in-out;
+}
+
+.login label{
+	color: #5c3d2e;
+	transform: scale(.6);
+}
+
+#chk:checked ~ .login{
+	transform: translateY(-450px);
+}
+#chk:checked ~ .login label{
+	transform: scale(1);
+}
+#chk:checked ~ .signup label{
+	transform: scale(.6);
+}
+
+#chk:not(:checked) ~ .login input,
+#chk:not(:checked) ~ .login button {
+    transform: translateY(-20px);
+   /* transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+    display: none;
+    */
+	visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s, opacity 1s ease-in-out;
+}
+
+
+.log-body{
+    margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 130vh;
+	font-family: 'Jost', sans-serif;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .main {
+        width: 80vw;
+    }
+    label {
+        font-size: 2.5em;
+    }
+    input, button {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .main {
+        width: 85vw;
+    }
+    label {
+        font-size: 2.2em;
+    }
+    input, button {
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .main {
+        width: 90vw;
+        min-height: 800px;
+    }
+    label {
+        font-size: 2em;
+    }
+    input, button {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main {
+        width: 95vw;
+        min-height: 700px;
+    }
+    label {
+        font-size: 1.8em;
+        margin: 30px;
+    }
+    input, button {
+        width: 85%;
+        height: 50px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .main {
+        width: 98vw;
+        min-height: 600px;
+    }
+    label {
+        font-size: 1.6em;
+        margin: 20px;
+    }
+    input, button {
+        width: 90%;
+        height: 45px;
+    }
+    .login {
+        border-radius: 50% / 8%;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    .main {
+        width: 100vw;
+        min-height: 550px;
+    }
+    label {
+        font-size: 1.4em;
+        margin: 15px;
+    }
+    input, button {
+        width: 95%;
+        height: 40px;
+    }
+    .login {
+        border-radius: 40% / 6%;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .main {
+        min-height: 500px;
+    }
+    label {
+        font-size: 1.2em;
+        margin: 10px;
+    }
+    input, button {
+        width: 98%;
+        height: 35px;
+    }
+    .login {
+        border-radius: 30% / 5%;
+    }
+}
+
+@media screen and (max-width: 910px) {
+    .login {
+        border-radius: 50% / 12%;
+    }
+}
+/* Small size */
+@media screen and (max-width: 768px) {
+    .login {
+        border-radius: 27% / 10%;
+    }
+	#chk:checked ~ .login{
+		transform: translateY(-420px);
+	}
+}
+
+@media screen and (max-width: 600px) {
+    .login {
+        border-radius: 40% / 8%;
+    }
+	#chk:checked ~ .login{
+		transform: translateY(-400px);
+	}
+}
+
+@media screen and (max-width: 470px) {
+    .login {
+        border-radius: 35% / 7%;
+    }
+}
+/* 760px */
+
+@media screen and (max-width: 760px) {
+    .login {
+        border-radius: 35% / 7%;
+    }
+}
+/* Small size */
+@media screen and (max-width: 450px) {
+    .login {
+        border-radius: 14% / 10%;
+    }
+	#chk:checked ~ .login{
+		transform: translateY(-370px);
+	}
+}
+
+@media screen and (max-width: 190px) {
+    .login {
+        border-radius: 14% / 10%;
+    }
+	#chk:checked ~ .login{
+		transform: translateY(-345px);
+	}
+}
+
+@media screen and (max-width: 475px) {
+    .login {
+        border-radius: 14% / 10%;
+    }
+	#chk:checked ~ .login{
+		transform: translateY(-370px);
+	}
+}
+
+@media screen and (max-width: 360px) {
+    .login {
+        border-radius: 5% / 10%;
+    }
+	#chk:checked ~ .login{
+		transform: translateY(-340px);
+	}
+}
+
+#password-strength {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#strength-bar {
+    display: inline-block;
+    width: 100px;
+    height: 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+    background-color: lightgray;
+    transition: width 0.3s, background-color 0.3s;
+}

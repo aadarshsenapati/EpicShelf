@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f8f1eb;
+            color: #333;
+        }
+        
+        .home {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            position: relative;
+        }
+        .text {
+            max-width: 50%;
+        }
+        .text h1 {
+            font-size: 3.2rem;
+            font-family: Charmonman;
+            font-weight:bolder;
+            color: #5c3d2e;
+        }
+        .text p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #444;
+        }
+        .btn-login {
+    padding: 8px 16px;
+    font-size: 1rem;
+    background-color: #f8f1eb;
+    color: #5c3d2e;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #5c3d2e;
+    color: #fff;
+}
+        .tilted-images {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-right: 50px;
+        }
+        .tilted-images img {
+            width: 220px;
+            height: 280px;
+            transform: rotate(15deg);
+            margin-bottom: 20px;
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+        .discount-badge {
+            position: absolute;
+            top: -80px;
+            right: -100px;
+            background: #ffcc29;
+            color: #5c3d2e;
+            padding: 15px 12px;
+            font-weight: bold;
+            border-radius: 20px;
+            font-size: 1rem;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .community-section {
+            text-align: center;
+            color: #5c3d2e;
+        }
+        .footer {
+            position: relative;
+            padding: 20px 0;
+            text-align: right;
+            
+        }
+        .footer div {
+            height: 30px;
+            float: right;
+        }
+        .bar1 { background-color: #ffcc29; width: 60%; }
+        .bar2 { background-color: #ffb347; width: 70%; }
+        .bar3 { background-color: #ff704d; width: 80%; }
+        .bar4 { background-color: #c85a7a; width: 90%; }
+        .bar5 { background-color: #8b3b70; width: 100%; }
