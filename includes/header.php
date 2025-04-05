@@ -121,6 +121,7 @@
                       <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="myAccountDropdown">
                           <li><a class="dropdown-item custom-dropdown-item" href="seller_login.html">Login/Sign Up</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="buybooks.php">Browse Top Book Categories</a></li>
+                          <li><a class="dropdown-item custom-dropdown-item" href="dash.php">My dash</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="profile.php">My Profile</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="orders.php">My Orders</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="#">My Selling Orders</a></li>
