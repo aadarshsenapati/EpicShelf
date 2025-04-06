@@ -125,7 +125,7 @@
                           <li><a class="dropdown-item custom-dropdown-item" href="profile.php">My Profile</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="orders.php">My Orders</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="#">My Selling Orders</a></li>
-                          <li><a class="dropdown-item custom-dropdown-item" href="#">Wishlist</a></li>
+                          <li><a class="dropdown-item custom-dropdown-item" href="Wishlist.php">Wishlist</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="#">How it Works?</a></li>
                       </ul>
                   </li>                
