@@ -59,20 +59,30 @@
                 </div>
                 <span>or use your email for registration</span>
             <img id="photoPreview" class="w-24 h-24 rounded-full mx-auto hidden" />
+   
                 <input type="text" placeholder="Name" />
+                <br>
                 <input type="email" placeholder="Email" />
+                <br>
                 <input type="number" placeholder="Phone Number" />
+                <br>
                 <label for="dob">Date of birth</label>
+          
                 <input type="date" name="dob"/>
+                <br>
                 <input type="number" placeholder="Aadhar Card Number" />
+                <br>
                 <select class="w-full p-2 border rounded-lg" required>
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                 </select>
+                <br>
                 <input type="password" placeholder="Password" />
+                <br>
                 <input type="password" placeholder="Confirm Password" />
+                <br>
                 <button>Sign Up</button>
               </form>
         
@@ -87,6 +97,7 @@
                 </div>
                 <span>or use your email account</span>
                 <input type="email" placeholder="Email" />
+                <br>
                 <input type="password" placeholder="Password" />
                 <a href="#">Forgot your password?</a>
                 <button>Login</button>
