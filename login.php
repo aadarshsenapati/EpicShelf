@@ -13,7 +13,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="css/style.css">
+    <!-- CSS link is here -->
     <link rel="stylesheet" href="css/style_seller.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -32,8 +32,8 @@
 </head>
 <body>
 <?php include ('includes/header.php'); ?>
-        <a href="seller_login.html" style="text-decoration: none !important;">
-        <button id="btom" style="text-decoration: none !important; background-color: whitesmoke; border: 1px solid #5c3d2e !important; color: black !important;">Seller login</button>
+<a href="seller_login.php" >
+            <button class="lb">Seller login</button>
         </a>
         <div class="containerf" id="containerf">
           <div class="form-containerf sign-up-containerf">
@@ -48,18 +48,26 @@
               
               <img id="photoPreview" class="w-24 h-24 rounded-full mx-auto hidden" />
               <input type="text" placeholder="Name" />
+              <br>
               <input type="email" placeholder="Email" />
+              <br>
               <input type="number" placeholder="Phone Number" />
+              <br>
               <input type="date" name="dob"/>
+              <br>
               <input type="number" placeholder="Aadhar Card Number" />
+              <br>
               <select class="w-full p-2 border rounded-lg" required>
                   <option value="">Select Gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Other">Other</option>
               </select>
+              <br>
               <input type="password" placeholder="Password" />
+              <br>
               <input type="password" placeholder="Confirm Password" />
+              <br>
               <button>Sign Up</button>
             </form>
       
@@ -74,6 +82,7 @@
               </div>
               <span>or use your email account</span>
               <input type="email" placeholder="Email" />
+              <br>
               <input type="password" placeholder="Password" />
               <a href="#">Forgot your password?</a>
               <button>Login</button>
@@ -140,6 +149,7 @@
       });
     </script>
     <!-- Javascript ends here -->
+     <br>
 </body>
 <?php include ('includes/footer.php'); ?>
 <!-- footer bar ends here -->
