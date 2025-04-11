@@ -1,3 +1,24 @@
+<?php
+include('includes/connection.php');
+
+$user_id = $_SESSION['user_id']; // make sure user is logged in
+
+$query = "SELECT `name`, dob, gender, email, password FROM users WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $fullName = htmlspecialchars($row['name']);
+    $birthday = htmlspecialchars($row['dob']);
+    $gender = htmlspecialchars($row['gender']);
+    $email = htmlspecialchars($row['email']);
+    $password = '[Set]'; // Never display real password
+} else {
+    $fullName = $birthday = $gender = $email = $password = '[Not Set]';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,16 +33,31 @@
     <div class="container">
         <div class="profile">
             <h1>Personal Information</h1>
+            
             <h2>Full Name</h2>
-            <p id="fullName">[Not Set] <button class="btn" onclick="enableInlineEdit('fullName')">Update</button></p>
+            <p id="fullName"><?php echo $fullName; ?> 
+                <button class="btn" onclick="enableInlineEdit('fullName')">Update</button>
+            </p>
+            
             <h2>Birthday</h2>
-            <p id="birthday">[Not Set] <button class="btn" onclick="enableInlineEdit('birthday')">Update</button></p>
+            <p id="birthday"><?php echo $birthday; ?> 
+                <button class="btn" onclick="enableInlineEdit('birthday')">Update</button>
+            </p>
+            
             <h2>Gender</h2>
-            <p id="gender">[Not Set] <button class="btn" onclick="enableInlineEdit('gender')">Update</button></p>
+            <p id="gender"><?php echo $gender; ?> 
+                <button class="btn" onclick="enableInlineEdit('gender')">Update</button>
+            </p>
+            
             <h2>Email</h2>
-            <p id="email">[Not Set] <button class="btn" onclick="enableInlineEdit('email')">Update</button></p>
+            <p id="email"><?php echo $email; ?> 
+                <button class="btn" onclick="enableInlineEdit('email')">Update</button>
+            </p>
+            
             <h2>Password</h2>
-            <p id="password">[Not Set] <button class="btn" onclick="enableInlineEdit('password')">Set</button></p>
+            <p id="password"><?php echo $password; ?> 
+                <button class="btn" onclick="enableInlineEdit('password')">Set</button>
+            </p>
         </div>
     </div>
 
