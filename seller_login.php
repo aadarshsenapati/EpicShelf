@@ -1,3 +1,73 @@
+<?php
+include('includes/connection.php'); // Ensure this includes the DB connection
+
+$message = "";
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // SIGNUP
+    if (isset($_POST['signup'])) {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $dob = $_POST['dob'];
+        $aadhaar = $_POST['aadhaar'];
+        $gender = $_POST['gender'];
+        $password = $_POST['password'];
+        $confirm_password = $_POST['confirm_password'];
+
+        if ($password !== $confirm_password) {
+            $message = "Passwords do not match!";
+        } else {
+            // Check if user exists
+            $check = $conn->prepare("SELECT id FROM sellers WHERE email = ?");
+            $check->bind_param("s", $email);
+            $check->execute();
+            $check->store_result();
+
+            if ($check->num_rows > 0) {
+                $message = "Email already registered!";
+            } else {
+                // Insert new user
+                $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+                $stmt = $conn->prepare("INSERT INTO sellers (name, email, phone, dob, aadhaar, gender, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssssss", $name, $email, $phone, $dob, $aadhaar, $gender, $hashed_password);
+                if ($stmt->execute()) {
+                    $message = "Registration successful! You can now login.";
+                } else {
+                    $message = "Error: " . $stmt->error;
+                }
+            }
+        }
+    }
+
+    // LOGIN
+    if (isset($_POST['login'])) {
+        $email = $_POST['login_email'];
+        $password = $_POST['login_password'];
+
+        $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows === 1) {
+            $stmt->bind_result($id, $name, $hashed_password);
+            $stmt->fetch();
+            if (password_verify($password, $hashed_password)) {
+                $_SESSION['user_id'] = $id;
+                $_SESSION['name'] = $name;
+                header("Location: dash.php");
+                exit;
+            } else {
+                $message = "Incorrect password.";
+            }
+        } else {
+            $message = "User not found.";
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="UTF-8">
@@ -60,32 +130,31 @@
                 <span>or use your email for registration</span>
             <img id="photoPreview" class="w-24 h-24 rounded-full mx-auto hidden" />
    
-                <input type="text" placeholder="Name" />
+                <input type="text" name="name" placeholder="Name" required />
                 <br>
-                <input type="email" placeholder="Email" />
+                <input type="email" name="email" placeholder="Email" required />
                 <br>
-                <input type="number" placeholder="Phone Number" />
+                <input type="number" name="phone" placeholder="Phone Number" required />
                 <br>
                 <label for="dob">Date of birth</label>
           
-                <input type="date" name="dob"/>
+                <input type="date" name="dob" id="dob" required />
                 <br>
-                <input type="number" placeholder="Aadhar Card Number" />
+                <input type="number" name="aadhaar" id="aadhaar" placeholder="Aadhar Card Number" required />
                 <br>
-                <select class="w-full p-2 border rounded-lg" required>
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                <select name="gender" class="w-full p-2 border rounded-lg" required>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
                 </select>
                 <br>
-                <input type="password" placeholder="Password" />
+                <input type="password" name="password" placeholder="Password" required />
                 <br>
-                <input type="password" placeholder="Confirm Password" />
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required />
                 <br>
-                <button>Sign Up</button>
+                <<button type="submit" name="signup">Sign Up</button>
               </form>
-        
             </div>
             <div class="form-containerf sign-in-containerf">
                 <form action="#" class="form" method="post">
@@ -96,12 +165,11 @@
                   <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email account</span>
-                <input type="email" placeholder="Email" />
+                <input type="email" name="login_email" placeholder="Email" required />
                 <br>
-                <input type="password" placeholder="Password" />
+                <input type="password" name="login_password" placeholder="Password" required />
                 <a href="#">Forgot your password?</a>
-                <button>Login</button>
-        
+                <button type="submit" name="login">Login</button>
               </form>
             </div>
             <div class="overlay-containerf">
@@ -120,6 +188,7 @@
         
             </div>
           </div>        
+          <br><br>
         <!-- card ends here -->
 
 
