@@ -1,4 +1,4 @@
-  html, body {
+html, body {
     height: 100%;
     width: 100%;
     margin: 0;
@@ -96,6 +96,68 @@ a{
     font-weight: 600;
     color: #5c3d2e;
     margin-top: 10px;
+}
+
+/* Wishlist Button Styling */
+.wishlist-btn {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 20px;
+    position: relative;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Default black heart */
+.wishlist-btn i {
+    color: black; /* Black heart */
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+/* Red heart when active */
+.wishlist-btn.hover i {
+    color: red; /* Red heart */
+}
+
+.wishlist-btn:hover {
+    transform: scale(1.2); 
+}
+
+
+.sprinkles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation: none;
+}
+
+/* Individual sprinkle elements */
+.sprinkles span {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    border-radius: 50%;
+    animation: sprinkle-animation 0.6s ease-out forwards;
+}
+
+/* Sprinkle animation */
+@keyframes sprinkle-animation {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2) translateY(-20px);
+        opacity: 0;
+    }
 }
 
 .card-body {
