@@ -6,19 +6,38 @@
     <title>EpicShelf</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Dosis:wght@200..800&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inspiration&family=Italiana&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+IN:wght@100..400&family=Poiret+One&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/buybooks.css">
 </head>
+<style>
+    .wishlist-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #ccc;
+        font-size: 20px;
+    }
+
+    .wishlist-btn.active {
+        color: red;
+    }
+
+    .wishlist-btn .sprinkles {
+        display: none;
+    }
+</style>
+
 <body>
 <?php include ('includes/header.php'); ?>
         <main>
@@ -157,6 +176,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/greatest_shortstory.png" class="card-img-top" alt="Greatest Short Stories For Children">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="Greatest Short Stories For Children">Greatest Short Stories...</h6>
@@ -170,6 +193,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/Secret_garden.png" class="card-img-top" alt="The Secret Garden">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="The Secret Garden">The Secret Garden</h6>
@@ -183,6 +210,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/10mins_bedtime.png" class="card-img-top" alt="10 Mins Bedtime Stories">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="10 Mins Bedtime Stories">10 Mins Bedtime...</h6>
@@ -196,6 +227,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/handbook.png" class="card-img-top" alt="Handbook Computer Science & IT for GATE,IES,PSU">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="Handbook Computer Science & IT for GATE,IES,PSU">Handbook Computer...</h6>
@@ -209,6 +244,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/indian_economy.png" class="card-img-top" alt="Indian Economy 8th Edition (In English) 2025">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="Indian Economy 8th Edition (In English) 2025">Indian Economy 8th...</h6>
@@ -222,6 +261,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/science_textbook.png" class="card-img-top" alt="Science Textbook For Class VII">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="Science Textbook For Class VII">Science Textbook...</h6>
@@ -235,6 +278,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/cbse_claa10.png" class="card-img-top" alt="PW CBSE Class 10 PYQs - Past 10 Years Solved Papers For 2025-2026 Exams">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="PW CBSE Class 10 PYQs - Past 10 Years Solved Papers For 2025-2026 Exams">PW CBSE Class 10...</h6>
@@ -255,6 +302,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/fiction_book1.png" class="card-img-top" alt="Twisted Love">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="Twisted Love">Twisted Love</h6>
@@ -268,6 +319,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/fiction_book2.png" class="card-img-top" alt="Republic Paperback – 22 July 2013">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="Republic Paperback – 22 July 2013">Republic Paperback</h6>
@@ -281,6 +336,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/fiction_book3.png" class="card-img-top" alt="The Art of Being Alone: Loneliness Was My Cage, Solitude Is My Home">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="The Art of Being Alone: Loneliness Was My Cage, Solitude Is My Home">The Art of Being Alone</h6>
@@ -294,6 +353,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/fiction_book4.png" class="card-img-top" alt="THE SILENT PATIENT [Paperback] Michaelides, Alex">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="THE SILENT PATIENT [Paperback] Michaelides, Alex">THE SILENT PATIENT...</h6>
@@ -307,6 +370,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/fiction_book5.png" class="card-img-top" alt="Never Lie : A Totally Gripping Thriller with Mind-bending Twists">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="Never Lie : A Totally Gripping Thriller with Mind-bending Twists">Never Lie...</h6>
@@ -320,6 +387,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/fiction_book6.png" class="card-img-top" alt="A Man Called Ove ">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="A Man Called Ove ">A Man Called...</h6>
@@ -333,6 +404,10 @@
                   <div class="card shadow-sm">
                       <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
                           <img src="assets/cbse_claa10.png" class="card-img-top" alt="PW CBSE Class 10 PYQs - Past 10 Years Solved Papers For 2025-2026 Exams">
+                          <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                       </div>
                       <div class="card-body">
                           <h6 class="card-title" title="PW CBSE Class 10 PYQs - Past 10 Years Solved Papers For 2025-2026 Exams">PW CBSE Class 10...</h6>
@@ -366,19 +441,19 @@
                       </h4>
                       <ul style="list-style: none; padding: 0; margin-top: 15px; color: #555; font-size: 15px;">
                           <li class="mb-2">
-                              <i class="fas fa-check-circle text-success me-2"></i>
+                              <i class="far fa-check-circle text-success me-2"></i>
                               Structured rental system ensuring smooth transactions.
                           </li>
                           <li class="mb-2">
-                              <i class="fas fa-check-circle text-success me-2"></i>
+                              <i class="far fa-check-circle text-success me-2"></i>
                               Secure payment gateways and a digital wallet.
                           </li>
                           <li class="mb-2">
-                              <i class="fas fa-check-circle text-success me-2"></i>
+                              <i class="far fa-check-circle text-success me-2"></i>
                               Community-driven commerce promoting sustainability.
                           </li>
                           <li class="mb-2">
-                              <i class="fas fa-check-circle text-success me-2"></i>
+                              <i class="far fa-check-circle text-success me-2"></i>
                               Robust admin dashboard for dispute resolution.
                           </li>
                       </ul>
@@ -390,5 +465,16 @@
           </div>
       </div>
       <?php include ('includes/footer.php'); ?>
+      <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+    });
+</script>
 </body>
 </html>
