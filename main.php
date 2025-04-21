@@ -150,7 +150,8 @@
               <img src="assets/b1.jpg" class="card-img-top" alt="...">
               <div class="card-body text-center">
                 <p class="card-text"><strong>Price: $20</strong></p>
-                <a href="#" class="btn" style="font-size:20px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
+                <a href="#" class="btn" style="font-size:15px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
+                <a href="#" class="btn" style="font-size:15px;background-color:green;color:#f8f1eb">Add to Cart</a>
               </div>
             </div>
     
@@ -159,7 +160,8 @@
               <img src="assets/b2.jpg" class="card-img-top" alt="...">
               <div class="card-body text-center">
                 <p class="card-text"><strong>Price: $18</strong></p>
-                <a href="#" class="btn" style="font-size:20px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
+                <a href="#" class="btn" style="font-size:15px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
+                <a href="#" class="btn" style="font-size:15px;background-color:green;color:#f8f1eb">Add to Cart</a>
               </div>
             </div>
     
@@ -168,7 +170,8 @@
               <img src="assets/b3.jpg" class="card-img-top" alt="...">
               <div class="card-body text-center">
                 <p class="card-text"><strong>Price: $25</strong></p>
-                <a href="#" class="btn" style="font-size:20px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
+                <a href="#" class="btn" style="font-size:15px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
+                <a href="#" class="btn" style="font-size:15px;background-color:green;color:#f8f1eb">Add to Cart</a>
               </div>
             </div>
           </div>
@@ -180,8 +183,8 @@
               <img src="assets/b1.jpg" class="card-img-top" alt="...">
               <div class="card-body text-center">
                 <p class="card-text"><strong>Price: $20</strong></p>
-                <a href="#" class="btn" style="font-size:20px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
-              </div>
+                <a href="#" class="btn" style="font-size:15px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
+                <a href="#" class="btn" style="font-size:15px;background-color:green;color:#f8f1eb">Add to Cart</a>              </div>
             </div>
     
             <div class="card position-relative" style="width: 18rem;">
@@ -189,8 +192,8 @@
               <img src="assets/b2.jpg" class="card-img-top" alt="...">
               <div class="card-body text-center">
                 <p class="card-text"><strong>Price: $18</strong></p>
-                <a href="#" class="btn" style="font-size:20px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
-              </div>
+                <a href="#" class="btn" style="font-size:15px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
+                <a href="#" class="btn" style="font-size:15px;background-color:green;color:#f8f1eb">Add to Cart</a>              </div>
             </div>
     
             <div class="card position-relative" style="width: 18rem;">
@@ -198,8 +201,8 @@
               <img src="assets/b3.jpg" class="card-img-top" alt="...">
               <div class="card-body text-center">
                 <p class="card-text"><strong>Price: $25</strong></p>
-                <a href="#" class="btn" style="font-size:20px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
-              </div>
+                <a href="#" class="btn" style="font-size:15px;background-color: #5c3d2e;color:#f8f1eb">Buy Book</a>
+                <a href="#" class="btn" style="font-size:15px;background-color:green;color:#f8f1eb">Add to Cart</a>              </div>
             </div>
           </div>
         </div>
