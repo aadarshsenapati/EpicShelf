@@ -9,57 +9,31 @@ CREATE TABLE users (
   password VARCHAR(255)
 );
 CREATE TABLE sellers (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    phone VARCHAR(15) NOT NULL,
-    dob DATE NOT NULL,
-    aadhaar VARCHAR(12) NOT NULL UNIQUE,
-    gender ENUM('Male', 'Female', 'Other') NOT NULL,
-    password VARCHAR(255) NOT NULL
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  phone VARCHAR(15) NOT NULL,
+  dob DATE NOT NULL,
+  aadhaar VARCHAR(12) NOT NULL UNIQUE,
+  gender ENUM('Male', 'Female', 'Other') NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+CREATE TABLE genres (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
 );
 ALTER TABLE users
 ADD COLUMN otp INT(6) DEFAULT NULL,
 ADD COLUMN otp_expiry DATETIME DEFAULT NULL;
-CREATE TABLE books_sold (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    book_name VARCHAR(255) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    quantity_sold INT NOT NULL,
-    total_earnings DECIMAL(12, 2) GENERATED ALWAYS AS (price * quantity_sold) STORED,
-    sold_date DATE NOT NULL
-);
-CREATE TABLE cart (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    user_id INT NOT NULL,
-    quantity INT NOT NULL,
-    added_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES products(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-CREATE TABLE checked_out (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    book_name VARCHAR(255) NOT NULL,
-    quantity INT NOT NULL,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    checkout_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-CREATE TABLE genres (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
-);
 CREATE TABLE products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    price DECIMAL(10,2) NOT NULL,
-    image VARCHAR(255),
-    stock_status VARCHAR(50) DEFAULT 'In Stock',
-    quantity INT NOT NULL,
-    seller_id INT,
-    FOREIGN KEY (seller_id) REFERENCES sellers(id)
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  image VARCHAR(255),
+  stock_status VARCHAR(50) DEFAULT 'In Stock',
+  quantity INT NOT NULL,
+  seller_id INT,
+  FOREIGN KEY (seller_id) REFERENCES sellers(id)
 );
 DELIMITER //
 
@@ -87,52 +61,78 @@ END;
 
 DELIMITER ;
 CREATE TABLE product_genres (
-    product_id INT NOT NULL,
-    genre_id INT NOT NULL,
-    PRIMARY KEY (product_id, genre_id),
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
-    FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE
+  product_id INT NOT NULL,
+  genre_id INT NOT NULL,
+  PRIMARY KEY (product_id, genre_id),
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+  FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE
 );
-
 CREATE TABLE seller_products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    seller_id INT NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES products(id),
-    FOREIGN KEY (seller_id) REFERENCES sellers(id)
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT NOT NULL,
+  seller_id INT NOT NULL,
+  FOREIGN KEY (product_id) REFERENCES products(id),
+  FOREIGN KEY (seller_id) REFERENCES sellers(id)
+);
+CREATE TABLE books_sold (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  book_name VARCHAR(255) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  quantity_sold INT NOT NULL,
+  total_earnings DECIMAL(12, 2) GENERATED ALWAYS AS (price * quantity_sold) STORED,
+  sold_date DATE NOT NULL
+);
+CREATE TABLE cart (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT NOT NULL,
+  user_id INT NOT NULL,
+  quantity INT NOT NULL,
+  added_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (product_id) REFERENCES products(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE TABLE checked_out (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  book_name VARCHAR(255) NOT NULL,
+  quantity INT NOT NULL,
+  total_amount DECIMAL(10, 2) NOT NULL,
+  checkout_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 CREATE TABLE shipments (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    seller_id INT NOT NULL,
-    quantity INT NOT NULL,
-    shipped BOOLEAN DEFAULT FALSE,
-    shipment_date DATE,
-    FOREIGN KEY (product_id) REFERENCES products(id),
-    FOREIGN KEY (seller_id) REFERENCES sellers(id)
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT NOT NULL,
+  seller_id INT NOT NULL,
+  quantity INT NOT NULL,
+  shipped BOOLEAN DEFAULT FALSE,
+  shipment_date DATE,
+  FOREIGN KEY (product_id) REFERENCES products(id),
+  FOREIGN KEY (seller_id) REFERENCES sellers(id)
 );
 CREATE TABLE user_address (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    fname VARCHAR(255) NOT NULL,
-    lname VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    flat_num VARCHAR(255) NOT NULL,
-    street_name VARCHAR(255) NOT NULL,
-    area VARCHAR(255) NOT NULL,
-    landmark VARCHAR(255),
-    country VARCHAR(255) NOT NULL,
-    state VARCHAR(255) NOT NULL,
-    zip VARCHAR(20) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  fname VARCHAR(255) NOT NULL,
+  lname VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  flat_num VARCHAR(255) NOT NULL,
+  street_name VARCHAR(255) NOT NULL,
+  area VARCHAR(255) NOT NULL,
+  landmark VARCHAR(255),
+  country VARCHAR(255) NOT NULL,
+  state VARCHAR(255) NOT NULL,
+  zip VARCHAR(20) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE TABLE wishlist (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    product_id INT NOT NULL,
-    added_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  product_id INT NOT NULL,
+  added_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
+
