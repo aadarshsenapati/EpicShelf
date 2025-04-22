@@ -22,3 +22,20 @@ CREATE TABLE sellers (
 ALTER TABLE users
 ADD COLUMN otp INT(6) DEFAULT NULL,
 ADD COLUMN otp_expiry DATETIME DEFAULT NULL;
+CREATE TABLE books_sold (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    book_name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    quantity_sold INT NOT NULL,
+    total_earnings DECIMAL(12, 2) GENERATED ALWAYS AS (price * quantity_sold) STORED,
+    sold_date DATE NOT NULL
+);
+CREATE TABLE cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    user_id INT NOT NULL,
+    quantity INT NOT NULL,
+    added_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
