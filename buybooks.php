@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
                     <img src="assets/School_books.png" alt="School Books">
                     <p>School Books (upto 12th)</p>
                 </a>
-                <a href="all-second-hand-books.html" class="featured-book">
+                <a href="disbooktype.php?genre=all" class="featured-book">
                     <img src="assets/view_all.png" alt="View All Second Hand Books">
                     <p>View All Books</p>
                 </a>
