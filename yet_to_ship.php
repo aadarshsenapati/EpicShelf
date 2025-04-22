@@ -1,3 +1,24 @@
+<?php
+include('includes/connection.php');
+
+// Fetch shipment data from the database
+$query = "SELECT 
+            s.id AS shipment_id,
+            p.name AS product_name,
+            se.name AS seller_name,
+            s.quantity,
+            s.shipped,
+            s.shipment_date
+          FROM shipments s
+          JOIN products p ON s.product_id = p.id
+          JOIN sellers se ON s.seller_id = se.id";
+$result = $conn->query($query);
+
+$shipments = [];
+while ($row = $result->fetch_assoc()) {
+    $shipments[] = $row;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,51 +30,33 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             padding: 20px;
+            background-color: #f8f1eb;
         }
+        
         table {
-            width: 60%;
+            width: 80%;
             border-collapse: collapse;
             margin-bottom: 20px;
-            table-layout: auto; /* Allows columns to adjust dynamically */
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 5px; /* Reduced padding for smaller cells */
-            text-align: center; /* Center-align text */
-            position: relative; /* For relative positioning of content */
+            border: 1px solid #5c3d2e; 
+            padding: 10px;
+            text-align: center;
         }
         th {
-            background-color: #f4f4f4;
+            background: #5c3d2e;
         }
         .status {
-            font-weight: bold;
+            background: #5c3d2e;
             color: #fff;
             padding: 5px 10px;
             border-radius: 5px;
-            text-align: center;
         }
         .shipped {
-            background-color: #4CAF50; /* Green for shipped */
+            background-color: #4CAF50;
         }
         .not-shipped {
-            background-color: #f44336; /* Red for not shipped */
-        }
-        .book-image {
-            width: 15%; /* 75% of the cell's width */
-            /* 75% of the cell's height */
-            object-fit: cover;
-            margin-bottom: 5px; /* Reduced margin */
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .book-name {
-            text-align: center;
-            font-size: 0.9em; /* Reduced font size */
-            font-weight: bold;
-            color: #333;
+            background-color: #f44336;
         }
     </style>
 </head>
@@ -62,45 +65,36 @@
     <table>
         <thead>
             <tr>
-                <th>Book Name</th>
+                <th>Product Name</th>
+                <th>Seller Name</th>
                 <th>Quantity</th>
                 <th>Shipping Status</th>
+                <th>Shipment Date</th>
             </tr>
         </thead>
-        <tbody id="shippingTable">
-            
+        <tbody>
+            <?php if (!empty($shipments)): ?>
+                <?php foreach ($shipments as $shipment): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($shipment['product_name']); ?></td>
+                        <td><?php echo htmlspecialchars($shipment['seller_name']); ?></td>
+                        <td><?php echo $shipment['quantity']; ?></td>
+                        <td>
+                            <span class="status <?php echo $shipment['shipped'] ? 'shipped' : 'not-shipped'; ?>">
+                                <?php echo $shipment['shipped'] ? 'Shipped' : 'Not Shipped'; ?>
+                            </span>
+                        </td>
+                        <td>
+                            <?php echo $shipment['shipped'] ? htmlspecialchars($shipment['shipment_date']) : 'N/A'; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="5" class="text-center">No shipment data available.</td>
+                </tr>
+            <?php endif; ?>
         </tbody>
     </table>
-
-    <script>
-        const books = [
-            { name: "Book A", quantity: 5, image: "book_a.jpg", shipped: true },
-            { name: "Book B", quantity: 3, image: "book_b.webp", shipped: false },
-            { name: "Book C", quantity: 2, image: "book_c.jpg", shipped: true }
-        ];
-
-        function displayShippingStatus() {
-            const tableBody = document.getElementById("shippingTable");
-
-            books.forEach(book => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>
-                        <img src="${book.image}" alt="${book.name}" class="book-image">
-                        <div class="book-name">${book.name}</div>
-                    </td>
-                    <td>${book.quantity}</td>
-                    <td>
-                        <span class="status ${book.shipped ? 'shipped' : 'not-shipped'}">
-                            ${book.shipped ? 'Shipped' : 'Not Shipped'}
-                        </span>
-                    </td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        displayShippingStatus();
-    </script>
 </body>
 </html>
