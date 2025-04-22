@@ -76,6 +76,62 @@ if ($genre === 'all') {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="css/disbooktype.css">
 </head>
+<style>
+    .wishlist-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #ccc;
+        font-size: 20px;
+    }
+
+    .wishlist-btn.active {
+        color: red;
+    }
+
+    .wishlist-btn .sprinkles {
+        display: none;
+    }
+
+.wishlist-btn:hover {
+    transform: scale(1.2); 
+}
+
+
+.sprinkles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation: none;
+}
+
+/* Individual sprinkle elements */
+.sprinkles span {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    border-radius: 50%;
+    animation: sprinkle-animation 0.6s ease-out forwards;
+}
+
+/* Sprinkle animation */
+@keyframes sprinkle-animation {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2) translateY(-20px);
+        opacity: 0;
+    }
+}
+</style>
 <body>
 <?php include('includes/header.php'); ?>
 
@@ -90,6 +146,10 @@ if ($genre === 'all') {
                     <?php foreach ($book_row as $book): ?>
                         <div class="col">
                             <div class="card shadow-sm h-100">
+                            <button class="wishlist-btn position-absolute top-0 end-0 m-2">
+                                <i class="fas fa-heart "></i>
+                                <div class="sprinkles"></div> 
+                          </button>
                                 <img src="<?php echo htmlspecialchars($book['image']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($book['name']); ?>" style="height: 200px; object-fit: cover;">
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title text-truncate"><?php echo htmlspecialchars($book['name']); ?></h5>
