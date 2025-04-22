@@ -1,3 +1,17 @@
+<?php
+include('includes/connection.php');
+
+$query = "SELECT book_name, price, quantity_sold, total_earnings, sold_date FROM books_sold";
+$result = $conn->query($query);
+
+$books_sold = [];
+$total_earnings = 0;
+
+while ($row = $result->fetch_assoc()) {
+    $books_sold[] = $row;
+    $total_earnings += $row['total_earnings'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,36 +23,28 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             padding: 20px;
+            background-color: #f8f1eb;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
-            table-layout: auto; /* Allows columns to adjust dynamically */
+            table-layout: auto;
+            border: 2px solid #5c3d2e; 
         }
         th, td {
-            border: 1px solid #ddd;
+            border: 1px solid #5c3d2e; 
             padding: 10px;
             text-align: left;
         }
         th {
-            background-color: #f4f4f4;
+            background: #5c3d2e;
+            color: #fff;
         }
         .total {
             font-weight: bold;
             font-size: 1.2em;
             text-align: right;
-        }
-        .book-image {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            margin-bottom: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
         }
         .book-name {
             text-align: center;
@@ -57,46 +63,29 @@
                 <th>Price</th>
                 <th>Quantity Sold</th>
                 <th>Total Earnings</th>
+                <th>Sold Date</th>
             </tr>
         </thead>
-        <tbody id="profitsTable">
-            
+        <tbody>
+            <?php if (!empty($books_sold)): ?>
+                <?php foreach ($books_sold as $book): ?>
+                    <tr>
+                        <td>
+                            <div class="book-name"><?php echo htmlspecialchars($book['book_name']); ?></div>
+                        </td>
+                        <td>$<?php echo number_format($book['price'], 2); ?></td>
+                        <td><?php echo $book['quantity_sold']; ?></td>
+                        <td>$<?php echo number_format($book['total_earnings'], 2); ?></td>
+                        <td><?php echo htmlspecialchars($book['sold_date']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="5" class="text-center">No books sold yet.</td>
+                </tr>
+            <?php endif; ?>
         </tbody>
     </table>
-    <p class="total">Total Earnings: $<span id="totalEarnings">0</span></p>
-
-    <script>
-        const booksSold = [
-            { name: "Book A", price: 20, quantity: 5, image: "book_a.jpg" },
-            { name: "Book B", price: 15, quantity: 3, image: "book_b.webp" },
-            { name: "Book C", price: 25, quantity: 2, image: "book_c.jpg" }
-        ];
-
-        function calculateProfits() {
-            const tableBody = document.getElementById("profitsTable");
-            let totalEarnings = 0;
-
-            booksSold.forEach(book => {
-                const earnings = book.price * book.quantity;
-                totalEarnings += earnings;
-
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>
-                        <img src="${book.image}" alt="${book.name}" class="book-image">
-                        <div class="book-name">${book.name}</div>
-                    </td>
-                    <td>$${book.price}</td>
-                    <td>${book.quantity}</td>
-                    <td>$${earnings}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-
-            document.getElementById("totalEarnings").innerText = totalEarnings;
-        }
-
-        calculateProfits();
-    </script>
+    <p class="total">Total Earnings: $<?php echo number_format($total_earnings, 2); ?></p>
 </body>
 </html>
