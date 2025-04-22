@@ -9,16 +9,15 @@ CREATE TABLE users (
   password VARCHAR(255)
 );
 CREATE TABLE sellers (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100),
-  email VARCHAR(100) UNIQUE,
-  phone VARCHAR(15),
-  dob DATE,
-  aadhaar VARCHAR(12),
-  gender VARCHAR(10),
-  password VARCHAR(255)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phone VARCHAR(15) NOT NULL,
+    dob DATE NOT NULL,
+    aadhaar VARCHAR(12) NOT NULL UNIQUE,
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
-
 ALTER TABLE users
 ADD COLUMN otp INT(6) DEFAULT NULL,
 ADD COLUMN otp_expiry DATETIME DEFAULT NULL;
@@ -38,4 +37,67 @@ CREATE TABLE cart (
     added_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (product_id) REFERENCES products(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE TABLE checked_out (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    book_name VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    checkout_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE TABLE genres (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    image VARCHAR(255),
+    stock_status VARCHAR(50) DEFAULT 'In Stock',
+    quantity INT NOT NULL,
+    seller_id INT,
+    FOREIGN KEY (seller_id) REFERENCES sellers(id)
+);
+DELIMITER //
+
+CREATE TRIGGER update_stock_status_before_insert
+BEFORE INSERT ON products
+FOR EACH ROW
+BEGIN
+    IF NEW.quantity < 1 THEN
+        SET NEW.stock_status = 'Out of Stock';
+    END IF;
+END;
+//
+
+CREATE TRIGGER update_stock_status_before_update
+BEFORE UPDATE ON products
+FOR EACH ROW
+BEGIN
+    IF NEW.quantity < 1 THEN
+        SET NEW.stock_status = 'Out of Stock';
+    ELSE
+        SET NEW.stock_status = 'In Stock';
+    END IF;
+END;
+//
+
+DELIMITER ;
+CREATE TABLE product_genres (
+    product_id INT NOT NULL,
+    genre_id INT NOT NULL,
+    PRIMARY KEY (product_id, genre_id),
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE
+);
+
+CREATE TABLE seller_products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    seller_id INT NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (seller_id) REFERENCES sellers(id)
 );
