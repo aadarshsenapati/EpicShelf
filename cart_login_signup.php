@@ -2,17 +2,28 @@
 
 include('includes/connection.php');
 
-
 $is_logged_in = isset($_SESSION['user_id']);
 $user_id = $is_logged_in ? $_SESSION['user_id'] : null;
 
+// Handle "Remove" action
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['product_id']) && $is_logged_in) {
+    $product_id = intval($_GET['product_id']);
+
+    // Remove the product from the cart
+    $stmt = $conn->prepare("DELETE FROM cart WHERE product_id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $product_id, $user_id);
+    $stmt->execute();
+
+    // Redirect back to the cart page
+    header("Location: cart_login_signup.php");
+    exit();
+}
 
 $cart_items = [];
 $total_cost = 0;
 
-
 if ($is_logged_in) {
-    $query = "SELECT p.name AS product_name, p.price, c.quantity, p.image 
+    $query = "SELECT p.id AS product_id, p.name AS product_name, p.price, c.quantity, p.image 
               FROM cart c 
               JOIN products p ON c.product_id = p.id 
               WHERE c.user_id = ?";
@@ -107,7 +118,7 @@ if ($is_logged_in) {
                   <td><?php echo $item['quantity']; ?></td>
                   <td>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></td>
                   <td>
-                    <a href="remove_from_cart.php?product_id=<?php echo $item['product_id']; ?>" class="btn btn-danger btn-sm">Remove</a>
+                    <a href="cart_login_signup.php?product_id=<?php echo $item['product_id']; ?>" class="btn btn-danger btn-sm">Remove</a>
                   </td>
                 </tr>
               <?php endforeach; ?>
