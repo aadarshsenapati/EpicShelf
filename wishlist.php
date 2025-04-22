@@ -1,3 +1,29 @@
+<?php
+// Start session and include database connection
+
+include('includes/connection.php');
+
+// Initialize variables
+$wishlist_items = [];
+
+// Fetch wishlist items for the logged-in user
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    $query = "SELECT p.name AS product_name, p.price, p.image, p.stock_status, p.id AS product_id 
+              FROM wishlist w 
+              JOIN products p ON w.product_id = p.id 
+              WHERE w.user_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $wishlist_items[] = $row;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,66 +64,40 @@
 					        	</tr>
 					        </thead>
 					        <tbody>
-					        	<tr>
-					        		<td width="45%">
-					        			<div class="display-flex align-center">
-		                                    <div class="img-product">
-		                                        <img src="assets/b1.jpg" alt="" class="mCS_img_loaded">
-		                                    </div>
-		                                    <div class="name-product">
-		                                        Apple iPad Mini
-		                                    </div>
-	                                    </div>
-	                                </td>
-					        		<td width="15%" class="price">$110.00</td>
-					        		<td width="15%"><span class="in-stock-box">In Stock</span></td>
-					        		<td width="15%"><button class="round-black-btn small-btn">Add to Cart</button></td>
-					        		<td width="10%" class="text-center">
-                                        <a href="#" class="trash-icon" onclick="deleteWishlistItem(this)">
-                                         <i class="far fa-trash-alt"></i>
-                                        </a>
-                                    </td>
-					        	</tr>
-					        	<tr>
-					        		<td width="45%">
-					        			<div class="display-flex align-center">
-		                                    <div class="img-product">
-		                                        <img src="assets/b2.jpg" alt="" class="mCS_img_loaded">
-		                                    </div>
-		                                    <div class="name-product">
-		                                        Apple iPad Mini
-		                                    </div>
-	                                    </div>
-	                                </td>
-					        		<td width="15%" class="price">$110.00</td>
-					        		<td width="15%"><span class="in-stock-box">In Stock</span></td>
-					        		<td width="15%"><button class="round-black-btn small-btn">Add to Cart</button></td>
-					        		<td width="10%" class="text-center">
-                                        <a href="#" class="trash-icon" onclick="deleteWishlistItem(this)">
-                                            <i class="far fa-trash-alt"></i>
-                                        </a>
-                                    </td>
-					        	</tr>
-					        	<tr>
-					        		<td width="45%">
-					        			<div class="display-flex align-center">
-		                                    <div class="img-product">
-		                                        <img src="assets/b3.jpg" alt="" class="mCS_img_loaded">
-		                                    </div>
-		                                    <div class="name-product">
-		                                        Apple iPad Mini
-		                                    </div>
-	                                    </div>
-	                                </td>
-					        		<td width="15%" class="price">$110.00</td>
-					        		<td width="15%"><span class="in-stock-box">In Stock</span></td>
-					        		<td width="15%"><button class="round-black-btn small-btn">Add to Cart</button></td>
-					        		<td width="10%" class="text-center">
-                                        <a href="#" class="trash-icon" onclick="deleteWishlistItem(this)">
-                                            <i class="far fa-trash-alt"></i>
-                                        </a>
-                                    </td>
-					        	</tr>
+                                <?php if (!empty($wishlist_items)): ?>
+                                    <?php foreach ($wishlist_items as $item): ?>
+                                        <tr>
+                                            <td width="45%">
+                                                <div class="display-flex align-center">
+                                                    <div class="img-product">
+                                                        <img src="<?php echo htmlspecialchars($item['image']); ?>" alt="" class="mCS_img_loaded">
+                                                    </div>
+                                                    <div class="name-product">
+                                                        <?php echo htmlspecialchars($item['product_name']); ?>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td width="15%" class="price">$<?php echo number_format($item['price'], 2); ?></td>
+                                            <td width="15%">
+                                                <span class="<?php echo $item['stock_status'] === 'In Stock' ? 'in-stock-box' : 'out-of-stock-box'; ?>">
+                                                    <?php echo htmlspecialchars($item['stock_status']); ?>
+                                                </span>
+                                            </td>
+                                            <td width="15%">
+                                                <button class="round-black-btn small-btn">Add to Cart</button>
+                                            </td>
+                                            <td width="10%" class="text-center">
+                                                <a href="#" class="trash-icon" onclick="deleteWishlistItem(this)" data-product-id="<?php echo $item['product_id']; ?>">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="5" class="text-center">Your wishlist is empty.</td>
+                                    </tr>
+                                <?php endif; ?>
 				        	</tbody>
 				        </table>
 				    </div>
@@ -108,7 +108,27 @@
 	<?php include ('includes/footer.php'); ?>
 	<script>
     function deleteWishlistItem(element) {
-        element.closest('tr').remove();
+        const row = element.closest('tr');
+        const productId = element.getAttribute('data-product-id');
+
+       
+        fetch('delete_wishlist_item.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ product_id: productId }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                
+                row.remove();
+            } else {
+                alert('Failed to delete the item. Please try again.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
     }
 </script>
 </body>
