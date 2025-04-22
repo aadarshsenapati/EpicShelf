@@ -1,3 +1,32 @@
+<?php
+
+include('includes/connection.php');
+
+
+$is_logged_in = isset($_SESSION['user_id']);
+$user_id = $is_logged_in ? $_SESSION['user_id'] : null;
+
+
+$cart_items = [];
+$total_cost = 0;
+
+
+if ($is_logged_in) {
+    $query = "SELECT p.name AS product_name, p.price, c.quantity, p.image 
+              FROM cart c 
+              JOIN products p ON c.product_id = p.id 
+              WHERE c.user_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $cart_items[] = $row;
+        $total_cost += $row['price'] * $row['quantity'];
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,43 +43,85 @@
       referrerpolicy="no-referrer"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Dosis:wght@200..800&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inspiration&family=Italiana&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+IN:wght@100..400&family=Poiret+One&display=swap" rel="stylesheet">
-
-    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Dosis:wght@200..800&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inspiration&family=Italiana&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+IN:wght@100..400&family=Poiret+One&display=swap" rel="stylesheet">
 </head>
 <body>
-  <?php include ('includes/header.php'); ?>
-      <div class="container" style="width:1400px">
+  <?php include('includes/header.php'); ?>
+
+  <div class="container" style="width:1400px">
+    <?php if (!$is_logged_in): ?>
+      <!-- Show login/signup prompt -->
+      <div class="container my-5">
+        <div class="p-5 text-center bg-body-tertiary rounded-3">
+          <img src="assets/cart_login.jpg" style="height:350px;width:350px;">
+          <p class="col-lg-8 mx-auto fs-5 text-muted">
+            Please login/signup to view your cart.
+          </p>
+          <div class="d-inline-flex gap-2 mb-5">
+            <a href="signup.php" class="d-inline-flex align-items-center btn btn-lg px-4 rounded-pill" style="background-color: #5c3d2e;color:#f8f1eb;">
+              Signup
+            </a>
+            <a href="login.php" class="btn btn-outline-secondary btn-lg px-4 rounded-pill" style="background-color:#f8f1eb;color:#5c3d2e">
+              Login
+            </a>
+          </div>
+        </div>
+      </div>
+    <?php else: ?>
+      
       <div class="container my-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb breadcrumb-custom overflow-hidden text-center bg-body-tertiary border rounded-3">
             <li class="breadcrumb-item">
               <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">
                 <svg class="bi" width="16" height="16"><use xlink:href="#house-door-fill"></use></svg>
-                Cart (0)
+                Cart (<?php echo count($cart_items); ?>)
               </a>
             </li>
           </ol>
         </nav>
       </div>
-    </div>
       <div class="container my-5">
-        <div class="p-5 text-center bg-body-tertiary rounded-3">
-          <img src="assets/cart_login.jpg" style="height:350px;width:350px;">
-          <p class="col-lg-8 mx-auto fs-5 text-muted">
-            Please login/signup
-          </p>
-          <div class="d-inline-flex gap-2 mb-5">
-            <button class="d-inline-flex align-items-center btn btn-lg px-4 rounded-pill" type="button" style="background-color: #5c3d2e;color:#f8f1eb;">
-              Signup
-            </button>
-            <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button" style="background-color:#f8f1eb;color:#5c3d2e">
-              Login
-            </button>
-          </div>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($cart_items as $item): ?>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="<?php echo htmlspecialchars($item['image']); ?>" alt="" style="width: 50px; height: 50px; margin-right: 10px;">
+                      <?php echo htmlspecialchars($item['product_name']); ?>
+                    </div>
+                  </td>
+                  <td>$<?php echo number_format($item['price'], 2); ?></td>
+                  <td><?php echo $item['quantity']; ?></td>
+                  <td>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></td>
+                  <td>
+                    <a href="remove_from_cart.php?product_id=<?php echo $item['product_id']; ?>" class="btn btn-danger btn-sm">Remove</a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+              <tr>
+                <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                <td colspan="2"><strong>$<?php echo number_format($total_cost, 2); ?></strong></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+    <?php endif; ?>
+  </div>
+
+  <?php include('includes/footer.php'); ?>
 </body>
-<?php include ('includes/footer.php'); ?>
 </html>
