@@ -102,7 +102,7 @@
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="assets/logo.png" alt="EpicShelf" style="height: 40px;"></a>
+            <a class="navbar-brand" href="buybooks.php"><img src="assets/logo.png" alt="EpicShelf" style="height: 40px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -119,12 +119,12 @@
                           <i class="fas fa-user"></i> My Account
                       </a>
                       <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="myAccountDropdown">
-                          <li><a class="dropdown-item custom-dropdown-item" href="seller_login.html">Login/Sign Up</a></li>
+                          <li><a class="dropdown-item custom-dropdown-item" href="seller_login.php">Login/Sign Up</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="buybooks.php">Browse Top Book Categories</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="dash.php">My dash</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="profile.php">My Profile</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="orders.php">My Orders</a></li>
-                          <li><a class="dropdown-item custom-dropdown-item" href="#">My Selling Orders</a></li>
+                          <li><a class="dropdown-item custom-dropdown-item" href="yet_to_ship.php">My Selling Orders</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="Wishlist.php">Wishlist</a></li>
                           <li><a class="dropdown-item custom-dropdown-item" href="#">How it Works?</a></li>
                       </ul>
