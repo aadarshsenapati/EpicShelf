@@ -31,6 +31,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
         }
     }
 }
+
+// Handle Add/Remove Wishlist functionality
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['wishlist_action'], $_POST['product_id'])) {
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $product_id = intval($_POST['product_id']);
+        $action = $_POST['wishlist_action'];
+
+        if ($action === 'add') {
+            // Add the product to the wishlist
+            $query = "INSERT INTO wishlist (user_id, product_id, added_date) VALUES (?, ?, NOW())";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("ii", $user_id, $product_id);
+            $stmt->execute();
+        } elseif ($action === 'remove') {
+            // Remove the product from the wishlist
+            $query = "DELETE FROM wishlist WHERE user_id = ? AND product_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("ii", $user_id, $product_id);
+            $stmt->execute();
+        }
+
+        // Return a JSON response
+        echo json_encode(['success' => true]);
+        exit();
+    } else {
+        // Return an error if the user is not logged in
+        echo json_encode(['success' => false, 'message' => 'User not logged in']);
+        exit();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -247,10 +278,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
             <div class="col-md-2 col-sm-6 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
-                    <button class="wishlist-btn position-absolute top-0 end-0 m-2">
-                                <i class="fas fa-heart "></i>
-                                <div class="sprinkles"></div> 
-                          </button>
+                        <?php
+                        // Check if the product is already in the wishlist
+                        $wishlist_query = "SELECT id FROM wishlist WHERE user_id = ? AND product_id = ?";
+                        $wishlist_stmt = $conn->prepare($wishlist_query);
+                        $wishlist_stmt->bind_param("ii", $_SESSION['user_id'], $book['id']);
+                        $wishlist_stmt->execute();
+                        $wishlist_result = $wishlist_stmt->get_result();
+                        $is_in_wishlist = $wishlist_result->num_rows > 0;
+                        ?>
+                        <button class="wishlist-btn position-absolute top-0 end-0 m-2 <?php echo $is_in_wishlist ? 'active' : ''; ?>" data-product-id="<?php echo $book['id']; ?>">
+                            <i class="fas fa-heart"></i>
+                            <div class="sprinkles"></div>
+                        </button>
                         <img src="<?php echo htmlspecialchars($book['image']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($book['name']); ?>">
                     </div>
                     <div class="card-body d-flex flex-column">
@@ -308,10 +348,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
                 <div class="col-md-2 col-sm-6 mb-4">
                     <div class="card shadow-sm">
                         <div class="card-img-container" style="background-color: #f8f1eb; padding: 10px;">
-                        <button class="wishlist-btn position-absolute top-0 end-0 m-2">
-                                <i class="fas fa-heart "></i>
-                                <div class="sprinkles"></div> 
-                          </button>
+                            <?php
+                            // Check if the product is already in the wishlist
+                            $wishlist_query = "SELECT id FROM wishlist WHERE user_id = ? AND product_id = ?";
+                            $wishlist_stmt = $conn->prepare($wishlist_query);
+                            $wishlist_stmt->bind_param("ii", $_SESSION['user_id'], $book['id']);
+                            $wishlist_stmt->execute();
+                            $wishlist_result = $wishlist_stmt->get_result();
+                            $is_in_wishlist = $wishlist_result->num_rows > 0;
+                            ?>
+                            <button class="wishlist-btn position-absolute top-0 end-0 m-2 <?php echo $is_in_wishlist ? 'active' : ''; ?>" data-product-id="<?php echo $book['id']; ?>">
+                                <i class="fas fa-heart"></i>
+                                <div class="sprinkles"></div>
+                            </button>
                             <img src="<?php echo htmlspecialchars($book['image']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($book['name']); ?>">
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -394,5 +443,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
     </div>
 </div>
 <?php include ('includes/footer.php'); ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                const isActive = this.classList.contains('active');
+                const action = isActive ? 'remove' : 'add';
+
+                // Toggle the active state
+                this.classList.toggle('active');
+
+                // Send AJAX request to add/remove from wishlist
+                fetch('buybooks.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `wishlist_action=${action}&product_id=${productId}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        alert(data.message || 'An error occurred');
+                        // Revert the toggle if the request failed
+                        this.classList.toggle('active');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Revert the toggle if the request failed
+                    this.classList.toggle('active');
+                });
+            });
+        });
+    });
+</script>
 </body>
 </html>
